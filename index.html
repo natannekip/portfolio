@@ -3,313 +3,387 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Natasha Kippur | Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://unpkg.com/lucide-react@latest"></script>
-
+    <title>n5a | Natasha Kippur - Digital Accessibility & ID Leadership</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-in { animation: fadeIn 0.7s ease-out forwards; }
-        .font-monogram { font-family: 'Playfair Display', serif; }
-        ::selection { background-color: #FDF2F2; color: #AD1457; }
+        :root {
+            --stone: #FFF9F8; 
+            --blush-light: #FDF2F0; 
+            --blush: #F8D7D2; 
+            --rose: #E8B4B8; 
+            --gold: #D4AF37; 
+            --gold-muted: #C5A059;
+            --charcoal: #3D3D3D;
+            --white: #ffffff;
+            --shadow: rgba(232, 180, 184, 0.2); 
+        }
+
+        /* Base Reset & Typography */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--stone); 
+            color: var(--charcoal); 
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; }
+
+        /* Navigation - Floating Monogram */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 3%; 
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 249, 248, 0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--blush);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            margin-left: -30px; 
+        }
+
+        .logo:hover { transform: scale(1.03); }
+
+        .logo-img-container {
+            width: 280px; 
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: transparent; 
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            mix-blend-mode: multiply; 
+        }
+
+        .logo-img.loaded { opacity: 1; }
+
+        nav { display: flex; gap: 0.5rem; margin-right: 2%; }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0.7rem 1.4rem;
+            border-radius: 50px;
+            border: 1px solid transparent;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            border-color: var(--rose);
+            color: var(--rose);
+            background: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Page Management */
+        main { margin-top: 140px; min-height: 90vh; position: relative; }
+        section { 
+            display: none; 
+            padding: 5rem 10%; 
+            background: var(--stone);
+            min-height: calc(100vh - 140px);
+            width: 100%;
+        }
+        
+        #home { display: block; }
+        :target { display: block !important; }
+        :target ~ #home { display: none !important; }
+
+        @keyframes archFadeIn {
+            from { opacity: 0; transform: scale(0.98) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* HOME PAGE */
+        .home-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+        }
+
+        .arch-outer {
+            position: relative;
+            padding: 20px;
+            border: 1px solid var(--blush);
+            border-radius: 400px 400px 40px 40px;
+            animation: archFadeIn 0.8s ease-out;
+        }
+
+        .arch-hero {
+            max-width: 800px;
+            background: var(--white);
+            padding: 7rem 5rem;
+            border-radius: 380px 380px 30px 30px;
+            text-align: center;
+            border: 1px solid var(--rose);
+            box-shadow: 0 25px 60px var(--shadow);
+            position: relative;
+        }
+
+        .hero-title { 
+            font-size: 4.5rem; 
+            color: var(--rose); 
+            margin-bottom: 3.5rem; 
+            line-height: 1.1; 
+            letter-spacing: -1px;
+        }
+        
+        .hero-subtitle { 
+            font-size: 0.9rem; 
+            text-transform: uppercase; 
+            letter-spacing: 5px; 
+            margin-bottom: 2rem; 
+            color: var(--gold-muted); 
+            display: block; 
+            font-weight: 500;
+        }
+
+        .hero-bio { 
+            max-width: 550px; 
+            margin: 0 auto; 
+            font-weight: 300; 
+            font-size: 1.3rem; 
+            color: var(--charcoal);
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .section-header { text-align: center; margin-bottom: 5rem; }
+        .section-header h2 { font-size: 3rem; color: var(--rose); margin-bottom: 0.5rem; }
+        .divider { width: 40px; height: 3px; background: var(--gold); margin: 0 auto; border-radius: 2px; }
+
+        /* Experience Grid */
+        .resume-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 6rem; }
+        .experience-card { margin-bottom: 4rem; position: relative; padding-left: 2.5rem; border-left: 2px solid var(--blush); }
+        .experience-card::before {
+            content: "";
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+        .experience-card h3 { color: var(--rose); font-size: 1.8rem; margin-bottom: 0.3rem; }
+        .experience-card .role-info { font-size: 0.85rem; color: var(--gold-muted); margin-bottom: 1.2rem; display: block; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .skill-group { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.5rem; }
+        .skill-tag { 
+            background: var(--white); 
+            border: 1px solid var(--rose); 
+            padding: 0.5rem 1.1rem; 
+            border-radius: 50px; 
+            font-size: 0.75rem; 
+            color: var(--rose); 
+            font-weight: 600; 
+            transition: 0.3s;
+        }
+        .skill-tag:hover { background: var(--rose); color: var(--white); }
+
+        /* Receipt Styles */
+        .receipt-item { 
+            background: white; 
+            padding: 2rem; 
+            border-radius: 20px; 
+            border-left: 4px solid var(--gold); 
+            margin-bottom: 2rem; 
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        /* Footer */
+        footer { padding: 4rem 5% 4rem; text-align: center; border-top: 1px solid var(--blush); font-size: 0.8rem; color: #999; }
+        .footer-logo-container {
+            width: 240px; 
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .skip-link { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+        .skip-link:focus { position: fixed; top: 10px; left: 10px; background: var(--gold); color: white; padding: 1rem; z-index: 2000; width: auto; height: auto; }
+
+        @media (max-width: 850px) {
+            .resume-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .arch-hero { padding: 4rem 2rem; border-radius: 200px 200px 30px 30px; }
+            .hero-title { font-size: 2.8rem; }
+            header { padding: 0 1%; }
+            .logo-img-container { width: 220px; height: 110px; }
+        }
     </style>
 </head>
-<body class="bg-white">
-    <div id="root"></div>
+<body>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { 
-            Menu, X, ChevronRight, Accessibility, BookOpen, Video, Layout, 
-            Mail, Phone, MapPin, ExternalLink, Github, Linkedin, 
-            FileText, MousePointer2, Briefcase, Award, ArrowLeft, Sparkles 
-        } = LucideReact;
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-        const App = () => {
-            const [activePage, setActivePage] = useState('home');
-            const [selectedProject, setSelectedProject] = useState(null);
-            const [isMenuOpen, setIsMenuOpen] = useState(false);
+    <header>
+        <a href="#home" class="logo" aria-label="n5a Home">
+            <div class="logo-img-container">
+                <img id="logo-id" src="" alt="n5a floating monogram logo" class="logo-img">
+            </div>
+        </a>
+        <nav aria-label="Main Navigation">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#journey" class="nav-link">Journey</a>
+            <a href="#a11y" class="nav-link">A11y Lab</a>
+            <a href="#design" class="nav-link">ID Work</a>
+        </nav>
+    </header>
 
-            const profile = {
-                name: "Natasha Kippur",
-                monogram: "nk",
-                title: "Instructional Designer & Accessibility Specialist",
-                summary: "Instructional Design and Accessibility Specialist creating clear, engaging learning content. Experienced in microlearning, LMS-based course support (D2L), and visual training design that simplifies complex systems.",
-                contact: {
-                    phone: "303-506-9657",
-                    email: "natashakippur@gmail.com",
-                    location: "Denver, CO"
-                },
-                experience: [
-                    {
-                        role: "Digital Accessibility Specialist",
-                        company: "Front Range Community College - Hybrid",
-                        period: "2025 - Present",
-                        highlights: [
-                            "Develop instructional materials and microlearning content.",
-                            "Create visual training resources in Canva.",
-                            "Support instructors in building accessible courses in D2L (LMS).",
-                            "Simplify complex standards into clear user guidance.",
-                            "Produce tutorial videos and walkthroughs.",
-                            "Conduct accessibility testing (NVDA, VoiceOver, Narrator).",
-                            "Collaborate to improve training and user experience.",
-                            "Administer Modern Campus CMS."
-                        ]
-                    },
-                    {
-                        role: "Digital Accessibility Fellow",
-                        company: "Colorado Secretary of State",
-                        period: "2024 - 2025",
-                        highlights: [
-                            "Create training guides and instructional content.",
-                            "Translate audits into clear, actionable guidance.",
-                            "Support training and accessibility improvements."
-                        ]
+    <main id="main-content">
+        
+        <section id="home">
+            <div class="home-container">
+                <div class="arch-outer">
+                    <div class="arch-hero">
+                        <span class="hero-subtitle">Digital Accessibility Leader</span>
+                        <h1 class="hero-title">Natasha Kippur</h1>
+                        <div class="hero-bio">
+                            <p>“Simplifying complex systems into inclusive digital environments, ensuring technology meets human needs through expert remediation and instructional design.”</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="journey">
+            <div class="section-header">
+                <h2>Professional Journey</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="resume-grid">
+                <div class="resume-left">
+                    <div class="experience-card">
+                        <h3>Digital Accessibility Specialist</h3>
+                        <span class="role-info">Front Range Community College | 2025 - Present</span>
+                        <p>Leading enterprise-level accessibility fixes for the frontrange.edu ecosystem. Partnering with cross-functional stakeholders to translate complex requirements into scalable learning solutions.</p>
+                    </div>
+                    <div class="experience-card">
+                        <h3>Digital Accessibility Fellow</h3>
+                        <span class="role-info">Colorado Secretary of State | 2024 - 2025</span>
+                        <p>Developed instructional guides and eLearning resources improving compliance awareness across internal teams.</p>
+                    </div>
+                    <div class="experience-card">
+                        <h3>Computer Science Scholar</h3>
+                        <span class="role-info">University of Colorado Denver | 2020 - 2025</span>
+                        <p>Leveraging a technical foundation to drive accessibility leadership and high-end UI remediation.</p>
+                    </div>
+                </div>
+                <div class="resume-right">
+                    <h4 style="margin-bottom: 1.5rem; color: var(--rose); border-bottom: 2px solid var(--blush); padding-bottom: 0.5rem;">Core Competencies</h4>
+                    <div class="skill-group">
+                        <span class="skill-tag">D2L Brightspace</span>
+                        <span class="skill-tag">Modern Campus CMS</span>
+                        <span class="skill-tag">WCAG 2.2 AA</span>
+                        <span class="skill-tag">Lighthouse QA</span>
+                        <span class="skill-tag">JIRA Strategy</span>
+                        <span class="skill-tag">NVDA / VoiceOver</span>
+                        <span class="skill-tag">Adobe Acrobat Pro</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="a11y">
+            <div class="section-header">
+                <h2>Accessibility Lab</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="receipt-item">
+                <h3 style="color: var(--rose);">Header Navigation Logic Fix</h3>
+                <p>Fixed inconsistent screen reader announcements by ensuring all navigation controls load with stable aria-states in Modern Campus CMS.</p>
+            </div>
+            <div class="receipt-item">
+                <h3 style="color: var(--rose);">Campus Phasing Plan Remediation</h3>
+                <p>Reconstructed tag hierarchy for color-coded roofing maps, ensuring spatial data is communicated programmatically via alt-text.</p>
+            </div>
+        </section>
+
+        <section id="design">
+            <div class="section-header">
+                <h2>Instructional Design</h2>
+                <div class="divider"></div>
+            </div>
+            <p style="text-align: center;">Showcasing work on Accessibility Pitstops and Universal Design for Learning (UDL) projects.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-logo-container">
+            <img id="footer-logo-id" src="" alt="n5a floating monogram logo" class="logo-img">
+        </div>
+        <p>&copy; 2026 Natasha Kippur | Denver, CO | natashakippur@gmail.com</p>
+        <p style="margin-top: 1rem; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; color: var(--rose);">Boutique Accessibility Design</p>
+    </footer>
+
+    <script>
+        const apiKey = ""; // Add your API key here
+        
+        async function generateLogo() {
+            const logoImg = document.getElementById('logo-id');
+            const footerLogo = document.getElementById('footer-logo-id');
+            const prompt = "A clean, high-end minimalist monogram logo for 'n5a'. Elegant, fine-line antique gold calligraphy. Floating monogram with subtle organic boho-retro accents. Absolutely NO circles, NO frames, NO squares, and NO borders. The background must be pure solid flat white. Airy and sophisticated.";
+            
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        instances: [{ prompt: prompt }],
+                        parameters: { sampleCount: 1 }
+                    })
+                });
+
+                if (!response.ok) return;
+
+                const text = await response.text();
+                const result = JSON.parse(text);
+                if (result && result.predictions && result.predictions[0]) {
+                    const base64Image = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                    logoImg.src = base64Image;
+                    logoImg.classList.add('loaded');
+                    if (footerLogo) {
+                        footerLogo.src = base64Image;
+                        footerLogo.classList.add('loaded');
                     }
-                ],
-                projects: [
-                    {
-                        id: "pitstops",
-                        title: "Accessibility Pitstops",
-                        category: "Microlearning Series",
-                        tag: "Instructional Design",
-                        description: "A microlearning training series designed to help instructors make quick, impactful accessibility improvements to their courses.",
-                        challenge: "Instructors often felt overwhelmed by technical audits and didn't know how to apply them to their specific course content.",
-                        solution: "Designed 'Pitstops'—bite-sized modules focusing on one task at a time, like writing effective alternative text or fixing heading hierarchies.",
-                        outcome: "Increased instructor engagement with accessibility resources and significantly improved internal course audit scores.",
-                        tools: ["Canva", "Brightspace LMS", "Modern Campus CMS"],
-                        color: "bg-[#FDF2F2]",
-                        textColor: "text-[#8D6E63]"
-                    },
-                    {
-                        id: "narrator",
-                        title: "Windows Narrator Guide",
-                        category: "Technical Documentation",
-                        tag: "Accessibility",
-                        description: "A comprehensive, plain-language guide for screen reader navigation tailored for new users and training sessions.",
-                        challenge: "Standard screen reader documentation was often too technical for beginners, leading to a steep learning curve during faculty training.",
-                        solution: "Created a visual, step-by-step guide translating complex keyboard shortcuts into a clear pedagogical path for new users.",
-                        outcome: "Adopted as a core training resource for the Colorado Secretary of State fellowship program.",
-                        tools: ["Microsoft Office", "Screen Readers", "Canva"],
-                        color: "bg-[#FAF3E0]",
-                        textColor: "text-[#B45309]"
-                    },
-                    {
-                        id: "case-studies",
-                        title: "Accessibility Case Studies",
-                        category: "Instructional Materials",
-                        tag: "ID + Accessibility",
-                        description: "Developed case studies and tutorials for accessibility training to bridge the gap between theory and practice.",
-                        challenge: "Standard accessibility training lacked real-world context for how issues impact students with disabilities.",
-                        solution: "Built interactive case studies showcasing user personas and specific digital barriers in a sandbox LMS environment.",
-                        outcome: "Improved technical proficiency and empathy among training participants during live workshops.",
-                        tools: ["D2L Brightspace", "Video Walkthroughs", "NVDA"],
-                        color: "bg-[#FCE4EC]",
-                        textColor: "text-[#AD1457]"
-                    }
-                ]
-            };
+                }
+            } catch (error) {
+                console.error("Logo generation failed.", error);
+            }
+        }
 
-            const navigateToProject = (project) => {
-                setSelectedProject(project);
-                setActivePage('project-detail');
-                window.scrollTo(0, 0);
-            };
-
-            const LogoMonogram = ({ size = "w-10 h-10" }) => (
-                <div className={`${size} border border-[#D4AF37] rounded-full flex items-center justify-center group-hover:bg-[#FDF2F2] transition-all duration-300 bg-white relative`}>
-                    <span 
-                        className="text-[#5D4037] text-4xl lowercase italic font-monogram transition-colors duration-300" 
-                        style={{ fontWeight: '200', letterSpacing: '-2px', transform: 'translateY(-2px)' }}
-                    >
-                        {profile.monogram}
-                    </span>
-                </div>
-            );
-
-            const Navigation = () => (
-                <nav className="fixed top-0 w-full bg-white/95 border-b border-[#FDF2F2] z-50 px-6 py-4 backdrop-blur-md">
-                    <div className="max-w-6xl mx-auto flex justify-between items-center">
-                        <button onClick={() => { setActivePage('home'); setSelectedProject(null); }} className="flex items-center gap-4 group">
-                            <LogoMonogram size="w-14 h-14" />
-                            <div className="flex flex-col items-start leading-none text-left">
-                                <span className="font-black text-lg tracking-tight text-[#5D4037]">Natasha Kippur</span>
-                                <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#D4AF37]">Version 0.4</span>
-                            </div>
-                        </button>
-                        <div className="hidden md:flex items-center gap-10">
-                            <button onClick={() => setActivePage('home')} className={`text-xs font-black uppercase tracking-[0.2em] ${activePage === 'home' ? 'text-[#D4AF37]' : 'text-[#8D6E63] hover:text-[#D4AF37]'}`}>Home</button>
-                            <button onClick={() => setActivePage('projects')} className={`text-xs font-black uppercase tracking-[0.2em] ${activePage === 'projects' ? 'text-[#D4AF37]' : 'text-[#8D6E63] hover:text-[#D4AF37]'}`}>Portfolio</button>
-                            <button onClick={() => setActivePage('contact')} className={`text-xs font-black uppercase tracking-[0.2em] ${activePage === 'contact' ? 'text-[#D4AF37]' : 'text-[#8D6E63] hover:text-[#D4AF37]'}`}>Contact</button>
-                        </div>
-                    </div>
-                </nav>
-            );
-
-            const Home = () => (
-                <div className="animate-in pt-32 pb-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-                    <div className="space-y-8">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#FDF2F2] text-[#AD1457] rounded-full text-[10px] font-black uppercase tracking-[0.2em]">
-                            <Sparkles size={12} /> Designing for Everyone
-                        </div>
-                        <h1 className="text-5xl md:text-7xl font-black leading-[1.1]">
-                            <span className="text-[#5D4037]">Inclusive</span> <span className="text-[#D4AF37] underline decoration-[#FDF2F2] underline-offset-8">Design</span>, <span className="text-[#5D4037]">Human Impact.</span>
-                        </h1>
-                        <p className="text-xl text-[#8D6E63] leading-relaxed max-w-xl">{profile.summary}</p>
-                        <div className="flex flex-wrap gap-4">
-                            <button onClick={() => setActivePage('projects')} className="bg-[#D4AF37] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#B8860B] transition-all shadow-lg">Explore Portfolio</button>
-                            <a href={`mailto:${profile.contact.email}`} className="border-2 border-[#FDF2F2] text-[#8D6E63] px-8 py-4 rounded-xl font-bold hover:bg-[#FFF9F9] transition-all">Get In Touch</a>
-                        </div>
-                    </div>
-                    <div className="bg-white rounded-[2.5rem] p-12 border border-[#FDF2F2] shadow-xl grid grid-cols-2 gap-6 relative overflow-hidden">
-                        <div className="bg-[#FFF9F9] p-6 rounded-2xl border border-[#FDF2F2] flex flex-col justify-between h-40">
-                            <Accessibility className="text-[#D4AF37]" size={32} />
-                            <h3 className="font-black text-[#5D4037] text-sm">WCAG Specialist</h3>
-                        </div>
-                        <div className="bg-[#D4AF37] p-6 rounded-2xl flex flex-col justify-between h-40 text-white mt-6 shadow-lg shadow-amber-200">
-                            <BookOpen size={32} />
-                            <h3 className="font-black text-sm">Instructional Design</h3>
-                        </div>
-                        <div className="bg-[#5D4037] p-6 rounded-2xl flex flex-col justify-between h-40 text-white">
-                            <Layout size={32} />
-                            <h3 className="font-black text-sm">Microlearning</h3>
-                        </div>
-                        <div className="bg-[#FFF9F9] p-6 rounded-2xl border border-[#FDF2F2] flex flex-col justify-between h-40 mt-6">
-                            <Video className="text-[#D4AF37]" size={32} />
-                            <h3 className="font-black text-[#5D4037] text-sm">Visual Training</h3>
-                        </div>
-                    </div>
-                </div>
-            );
-
-            const ProjectList = () => (
-                <div className="pt-40 pb-24 px-6 max-w-6xl mx-auto animate-in">
-                    <h1 className="text-5xl font-black text-[#5D4037] mb-4 tracking-tighter">Full Portfolio</h1>
-                    <p className="text-xl text-[#8D6E63] mb-16 max-w-2xl font-medium">A deep dive into projects centered on accessibility testing and instructional design.</p>
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {profile.projects.map(project => (
-                            <div key={project.id} className="group cursor-pointer bg-white rounded-[2rem] overflow-hidden border border-[#FDF2F2] hover:shadow-2xl transition-all flex flex-col" onClick={() => navigateToProject(project)}>
-                                <div className={`h-48 ${project.color} flex items-center justify-center`}>
-                                    <FileText className="text-[#D4AF37]/30" size={56} />
-                                </div>
-                                <div className="p-8 flex-grow">
-                                    <span className="text-[#AD1457] font-black text-[10px] uppercase tracking-[0.2em] mb-3 block">{project.tag}</span>
-                                    <h3 className="text-xl font-black text-[#5D4037] mb-4">{project.title}</h3>
-                                    <p className="text-[#8D6E63] text-sm leading-relaxed mb-6">{project.description}</p>
-                                    <div className="h-[1px] bg-[#FDF2F2] mb-6"></div>
-                                    <button className="text-[#D4AF37] font-black text-xs uppercase tracking-widest flex items-center gap-2 group-hover:translate-x-1 transition-all">See Case Study <ChevronRight size={14} /></button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            );
-
-            const ProjectDetail = ({ project }) => (
-                <div className="animate-in">
-                    <div className={`pt-48 pb-24 ${project.color} px-6`}>
-                        <div className="max-w-4xl mx-auto">
-                            <button onClick={() => setActivePage('projects')} className="mb-12 flex items-center gap-2 font-black text-[10px] uppercase tracking-[0.2em] text-[#AD1457] hover:opacity-70 transition-opacity"><ArrowLeft size={16} /> Portfolio</button>
-                            <div className="space-y-6 text-left">
-                                <span className="bg-white/40 text-[#AD1457] px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em]">{project.category}</span>
-                                <h1 className="text-5xl md:text-7xl font-black text-[#5D4037] tracking-tighter leading-tight">{project.title}</h1>
-                                <p className="text-2xl text-[#8D6E63] max-w-2xl font-medium leading-relaxed">{project.description}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="max-w-4xl mx-auto px-6 py-24">
-                        <div className="grid md:grid-cols-3 gap-16">
-                            <div className="md:col-span-2 space-y-20 text-left">
-                                <section>
-                                    <h2 className="text-[10px] font-black text-[#D4AF37] uppercase tracking-[0.3em] mb-6">The Challenge</h2>
-                                    <p className="text-xl text-[#5D4037] leading-relaxed font-medium">{project.challenge}</p>
-                                </section>
-                                <section>
-                                    <h2 className="text-[10px] font-black text-[#D4AF37] uppercase tracking-[0.3em] mb-6">The Solution</h2>
-                                    <p className="text-xl text-[#5D4037] leading-relaxed font-medium">{project.solution}</p>
-                                </section>
-                                <section className="bg-[#FFF9F9] p-12 rounded-[2.5rem] border border-[#FDF2F2]">
-                                    <h2 className="text-[10px] font-black text-[#AD1457] uppercase tracking-[0.3em] mb-8">Impact & Results</h2>
-                                    <div className="flex gap-6 items-start">
-                                        <div className="p-4 bg-white rounded-2xl shadow-sm text-[#D4AF37]"><Award size={32} /></div>
-                                        <p className="text-2xl font-black text-[#5D4037] tracking-tight leading-snug italic">"{project.outcome}"</p>
-                                    </div>
-                                </section>
-                            </div>
-                            <aside className="space-y-12 text-left">
-                                <div>
-                                    <h3 className="text-[10px] font-black text-[#8D6E63] uppercase tracking-[0.2em] mb-6">Tech Stack</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {project.tools.map(tool => (<span key={tool} className="bg-white border border-[#FDF2F2] px-4 py-2 rounded-xl text-xs font-bold text-[#5D4037] shadow-sm">{tool}</span>))}
-                                    </div>
-                                </div>
-                                <div className="pt-10 border-t border-[#FDF2F2]">
-                                    <h3 className="text-[10px] font-black text-[#8D6E63] uppercase tracking-[0.2em] mb-4">Role</h3>
-                                    <p className="font-black text-[#5D4037] text-lg">Lead Instructional Designer</p>
-                                </div>
-                                <button onClick={() => setActivePage('contact')} className="w-full bg-[#5D4037] text-white py-5 rounded-2xl font-black text-sm hover:bg-[#3E2723] transition-all flex items-center justify-center gap-3 shadow-lg">Start a Conversation <ExternalLink size={18} /></button>
-                            </aside>
-                        </div>
-                    </div>
-                </div>
-            );
-
-            const Contact = () => (
-                <div className="pt-40 pb-24 px-6 max-w-4xl mx-auto animate-in">
-                    <div className="text-center mb-20">
-                        <h1 className="text-6xl font-black text-[#5D4037] mb-6 tracking-tighter">Get in Touch</h1>
-                        <p className="text-xl text-[#8D6E63] max-w-2xl mx-auto font-medium">Whether you need an accessibility audit or an engaging microlearning course, I’m ready to collaborate.</p>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-8 bg-[#FFF9F9] rounded-[3rem] p-4 border border-[#FDF2F2] shadow-2xl">
-                        <div className="bg-[#5D4037] p-12 rounded-[2.5rem] text-white space-y-12 text-left">
-                            <h2 className="text-3xl font-black">Contact Details</h2>
-                            <div className="space-y-8">
-                                <div className="flex items-center gap-6 group"><div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center group-hover:bg-[#D4AF37] transition-all"><Mail size={24} /></div><div><p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">Email</p><p className="font-bold text-lg">{profile.contact.email}</p></div></div>
-                                <div className="flex items-center gap-6 group"><div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center group-hover:bg-[#D4AF37] transition-all"><Phone size={24} /></div><div><p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">Phone</p><p className="font-bold text-lg">{profile.contact.phone}</p></div></div>
-                                <div className="flex items-center gap-6 group"><div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center group-hover:bg-[#D4AF37] transition-all"><MapPin size={24} /></div><div><p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">Location</p><p className="font-bold text-lg">{profile.contact.location}</p></div></div>
-                            </div>
-                        </div>
-                        <div className="p-8 md:p-12 bg-white rounded-[2.5rem]">
-                            <form className="space-y-6 text-left" onSubmit={e => e.preventDefault()}>
-                                <div className="space-y-2"><label className="text-[10px] font-black text-[#AD1457] uppercase tracking-widest">Name</label><input type="text" className="w-full bg-[#FFF9F9] border-none rounded-xl p-4 focus:ring-2 focus:ring-[#D4AF37] outline-none" placeholder="Natasha Kippur" /></div>
-                                <div className="space-y-2"><label className="text-[10px] font-black text-[#AD1457] uppercase tracking-widest">Email</label><input type="email" className="w-full bg-[#FFF9F9] border-none rounded-xl p-4 focus:ring-2 focus:ring-[#D4AF37] outline-none" placeholder="natasha@example.com" /></div>
-                                <div className="space-y-2"><label className="text-[10px] font-black text-[#AD1457] uppercase tracking-widest">Message</label><textarea className="w-full bg-[#FFF9F9] border-none rounded-xl p-4 focus:ring-2 focus:ring-[#D4AF37] outline-none h-40" placeholder="Tell me about your team..."></textarea></div>
-                                <button className="w-full bg-[#D4AF37] hover:bg-[#B8860B] text-white font-black py-5 rounded-2xl shadow-xl shadow-amber-100 transition-all">Send Message</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            );
-
-            return (
-                <div className="min-h-screen bg-white font-sans text-[#5D4037]">
-                    <Navigation />
-                    <main id="main-content">
-                        {activePage === 'home' && <Home />}
-                        {activePage === 'projects' && <ProjectList />}
-                        {activePage === 'project-detail' && selectedProject && <ProjectDetail project={selectedProject} />}
-                        {activePage === 'contact' && <Contact />}
-                    </main>
-                    <footer className="py-20 px-6 border-t border-[#FDF2F2] bg-[#FFF9F9]">
-                        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-                            <div className="flex items-center gap-3 group cursor-pointer" onClick={() => setActivePage('home')}>
-                                <LogoMonogram size="w-10 h-10" />
-                                <span className="font-black text-[#5D4037]">Natasha Kippur</span>
-                            </div>
-                            <div className="text-[#8D6E63] text-[10px] font-black uppercase tracking-[0.4em]">Accessible Design &copy; 2026</div>
-                        </div>
-                    </footer>
-                </div>
-            );
-        };
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        window.onload = generateLogo;
     </script>
 </body>
 </html>
